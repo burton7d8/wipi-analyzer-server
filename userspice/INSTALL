@@ -81,10 +81,6 @@ cp custom_login_script.php /var/www/html/wipi/usersc/scripts
 cp logo.png /var/www/html/wipi/users/images
 --if it asks to overwrite, say yes
 
-|copy over the wipi_server_files.tar that is within the server_files directory that came in the wipi.tar, to the userpsice wipi_server directory
-cp wipi_server_files.tar /var/www/html/wipi/
-
-
 
 
 
