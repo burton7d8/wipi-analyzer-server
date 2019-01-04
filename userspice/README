@@ -1,0 +1,148 @@
+---=== This file will walk you through on how to setup wipi-analyzer-server to be password protected by utilizing UserSpice ===---
+https://userspice.com/
+-- the webpage has a bunch of information and videos about userspice, check them out when you have time...
+
+cd /home/wipi
+sudo apt-get install composer
+sudo composer require twbs/bootstrap
+
+
+cd /var/www/html/
+
+wget https://github.com/mudmin/UserSpice4/archive/master.zip
+
+unzip master.zip
+
+mv UserSpice4-master/ wipi/
+
+sudo chown -R wipi:www-data /var/www/html/wipi/
+
+
+
+sudo mysql -u root -p -e "create database userspice;"
+|on the next line set the userspice_user_password to the password that you want the userspice database user to use to access the userspice database
+sudo mysql -u root -p -e "grant all privileges on userspice.* to 'userspice'@'localhost' identified by 'userspice_user_password'; flush privileges;"
+
+
+
+sudo chmod 666 /var/www/html/wipi/users/init.php
+
+|open the following url in a web browser
+http://your.server.ip/wipi/
+-- run the installer
+	- set your timezone
+	- set database host to localhost
+	- set database user to userspice
+	- set database password to [ the database password you used in the mysql line above ]
+	- set database name to userspice
+	- set copyright message to "WiPi Server"
+	- click "Test Settings"
+	- scroll down, you should see "Database connection successfull! / Tables imported successfully
+	- click red "Save Settings" button
+	- click return to admin dashboard [ you shoud see the admin dashboard for userspice ]
+
+cd /var/www/html/wipi
+rm -rf ./install
+
+
+|copy over the z_us_root.php file from within the userspice folder that came in the wipi.tar 
+cp z_us_root.php /var/www/html/wipi/
+--if it asks to overwrite, say yes
+
+|copy over the index.php file within the userspice folder that came in the wipi.tar
+cp index.php /var/www/html/wipi/
+--if it asks to overwrite, say yes
+
+|copy over the custom_login_script.php file within the userspice folder that came in the wipi.tar
+cp custom_login_script.php /var/www/html/wipi/usersc/scripts
+--if it asks to overwrite, say yes
+
+|copy over the logo.png file within the userspice folder that came in the wipi.tar
+cp logo.png /var/www/html/wipi/users/images
+--if it asks to overwrite, say yes
+
+|copy over the wipi_server_files.tar that is within the server_files directory that came in the wipi.tar, to the userpsice wipi_server directory
+cp wipi_server_files.tar /var/www/html/wipi/
+
+cd /var/www/html/wipi/
+
+mkdir wipi-analyzer-server
+
+cd wipi-analyzer-server
+
+git init
+
+git pull https://github.com/burton7d8/wipi-analyzer-server master
+
+sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
+
+|setup wipi config for your passwords
+vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
+-- change all the passwords accordingly in this file
+-- :x
+
+
+
+
+sudo chmod 644 /var/www/html/wipi/users/init.php
+
+
+
+vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
+-- set $using_userspice = "yes";
+-- :x
+
+|open the following url in a web browser
+http://your.server.ip/wipi/
+
+|login as user: admin / pw: password
+
+|hit the gear on top right
+-- user management
+-- manually add user
+-- create a user for access to the wipi_server web page [ ie: username wipi ]
+-- click add user button
+-- it will take you over as that user, logout and back in as admin
+
+|hit the gear on top right
+-- goto page management
+-- in the "search" type in wipi-analyzer-server
+	- all the wipi-analyzer-server files should show up
+-- click on each file and ensure they are set to private, and add the users you want to be able to access the wipi-analyzer-server webpage
+	- NOTE: make sure to leave wipi.php as public and don't bother setting users
+
+
+|hit the gear on top right
+-- choose Admin Dashboard
+-- click on "Site Settings" located toward bottom
+	- set your site name and copyright message to "Wipi Analzyer Server"
+	- set "Messaging" to disabled
+	- set "Force HTTPS Connections" to "Yes"
+	- click the "Save Site Settings" button on the bottom
+-- click on "Registation"
+	- set "Registration" to "Disabled"
+	- click the "Save Registration Settings" button on the bottom
+
+
+|hit the admin user icon on the top right
+-- click "Edit Account Info" button
+	- change the admin password
+	- click blue "Update" button
+
+
+
+
+
+
+
+
+
+
+
+
+
+SIDE NOTE: If you make any other pages just throw this on the top of any .php file you create, then set permissions for the php file under "page management" when logged in as admin
+if(!$abs_us_root)
+        require_once '../users/init.php';
+if (!securePage($_SERVER["PHP_SELF"])){die();}
+

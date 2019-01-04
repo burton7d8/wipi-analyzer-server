@@ -1,0 +1,99 @@
+This file will walk you through setting up a WiPi-Analyzer-Server
+
+Ubuntu Server install
+======================
+NOTE: follow these steps if you need to setup a server from scratch
+
+1) boot the ISO
+2) choose your language
+3) choose "Install Ubuntu Server"
+4) choose language / keyboard [ for US choose defaults ] 
+5) When you get to choose hostname set your hostname [ recommended: wipi-server ]
+6) Set user name and user to [ wipi ]
+7) set your password [ don't forget this ]
+8) do not encrypt your home directory
+9) set correct timezone
+10) choose [ Guided - use entire disk and set up LVM ] WARNING: this will erase the current hard drive!!
+11) choose yes to make changes, and choose the size it presents, and yes to make changes
+	-- The install process should start now
+12) Configure tasksel [ recommend Install security updates automatically ]
+13) You can choose to install LAMP server at this point if you like 
+14) Choose OpenSSH server, then continue
+15) Choose Yes to install GRUB
+16) Then continue to reboot system
+17) after boot up, login locally
+18) type [ ifconfig | grep inet ]
+19) one of the listed ip's is the ip address of your server
+20) you can now ssh from another machine if need be to continue on with the wipi-server setup
+
+
+
+Ubuntu Server Setup
+======================
+NOTE: Once you have a server online, follow these steps to set it up to be a WiPi-Server
+
+WARNING: These steps assume this is a fresh installed, dedicated server, for the use of WiPi-Server Only!!!
+		It is not recommended to follow this guide for an existing server!!!!
+		-- If you already have a LAMP server going, and know what you are doing, then you
+			can jump ahead to the section where you do the mysql provisioning
+
+
+|New Install steps only!
+sudo apt update && sudo apt upgrade
+sudo apt install tasksel
+sudo tasksel install lamp-server
+	-- set  your root mysql password; write it down
+	-- after the install completes, try loading the following from your web browser
+		http://the.ip.of.server
+		-- if you get the "Apache2 Ubuntu Default Page" your lamp install was succesful
+
+|Run these commands to ensure https is running on your site [ New Install steps only! ]
+cd /etc/apache2/sites-available
+sudo a2enmod ssl
+sudo a2ensite *
+sudo service apache2 reload
+	-- now try loading the following https site from your web browser
+		https://the.ip.of.server
+		-- if you get the "Apache2 Ubuntu Default Page" your https setup was succesful
+
+
+|MYSQL setup
+mysql -u root -p -e "create database wipi_analyzer;"
+mysql -u root -p -e "grant all privileges on wipi_analyzer.* to 'wipi'@'localhost' identified by 'yourwipipassword'; flush privileges;"
+
+
+
+!!!!! NOTE: If you plan to have WiPi-Analyzer-Server public facing then I highly recommend password protecting it.
+	I have documention within ./userspice/INSTALL on how to setup wipi-analyzer-server with password protection
+	using UserSpice
+
+
+
+Setup WiPi-Analzyer-Server website without password protection [ Ignore these steps if using Userspice ]
+==================================================================================================
+NOTE:  WiPi gathers mac addresses and hostnames of all the devices on your network!
+	By not password protecting WiPi-Server then all that information will be public
+	if you have your WiPi-Server public facing on the internet.  If you plan to only
+	use WiPi-Server and a WiPi client in a closed network, then you can continue.
+		--Or continue if you just don't care :)
+
+mkdir /var/www/html/wipi-analyzer-server
+
+cd /var/www/html/wipi-analyzer-server
+
+git init
+
+git pull https://github.com/burton7d8/wipi-analyzer-server master
+
+sudo chown -R wipi:www-data /var/www/html/wipi-analyzer-server/*
+
+mysql -u root -p wipi_analyzer < wipi_analyzer.sql
+
+|setup wipi config for your passwords
+vim wipi_config.php
+-- ensure $using_userspice = "no";
+-- change all the passwords accordingly in this file
+-- :x
+
+WiPi-Server should now be available to use via https://the.ip.of.server/wipi-analyzer-server/
+
