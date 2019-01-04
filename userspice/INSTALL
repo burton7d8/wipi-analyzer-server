@@ -58,6 +58,7 @@ sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
 |setup wipi config for your passwords
 vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
 -- change all the passwords accordingly in this file
+-- set $using_userspice = "yes";
 -- :x
 
 
@@ -91,9 +92,6 @@ sudo chmod 644 /var/www/html/wipi/users/init.php
 
 
 
-vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
--- set $using_userspice = "yes";
--- :x
 
 |open the following url in a web browser
 http://your.server.ip/wipi/
