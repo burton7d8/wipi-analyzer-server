@@ -98,14 +98,15 @@ http://your.server.ip/wipi/
 -- user management
 -- manually add user
 -- create a user for access to the wipi_server web page [ ie: username wipi ]
--- click add user button
+-- click add user button  [ the wipi user will get automatically added to the "User" permissions group ]
 -- it will take you over as that user, logout and back in as admin
 
 |hit the gear on top right
 -- goto page management
 -- in the "search" type in wipi-analyzer-server
 	- all the wipi-analyzer-server files should show up
--- click on each file and ensure they are set to private, and add the users you want to be able to access the wipi-analyzer-server webpage
+-- click on each file and ensure they are set to private, and add the "permission groups" ie: Users & Administrator,  
+	you want to be able to access the wipi-analyzer-server webpage, rememering that the user "wipi" is part of the "Users" permissions group
 	- NOTE: make sure to leave wipi.php as public and don't bother setting users
 
 
