@@ -45,6 +45,25 @@ cd /var/www/html/wipi
 rm -rf ./install
 
 
+mkdir wipi-analyzer-server
+
+cd wipi-analyzer-server
+
+git init
+
+git pull https://github.com/burton7d8/wipi-analyzer-server master
+
+sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
+
+|setup wipi config for your passwords
+vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
+-- change all the passwords accordingly in this file
+-- :x
+
+
+cd /var/www/html/wipi/wipi-analyzer-server/userspice
+
+
 |copy over the z_us_root.php file from within the userspice folder that came in the wipi.tar 
 cp z_us_root.php /var/www/html/wipi/
 --if it asks to overwrite, say yes
@@ -64,22 +83,6 @@ cp logo.png /var/www/html/wipi/users/images
 |copy over the wipi_server_files.tar that is within the server_files directory that came in the wipi.tar, to the userpsice wipi_server directory
 cp wipi_server_files.tar /var/www/html/wipi/
 
-cd /var/www/html/wipi/
-
-mkdir wipi-analyzer-server
-
-cd wipi-analyzer-server
-
-git init
-
-git pull https://github.com/burton7d8/wipi-analyzer-server master
-
-sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
-
-|setup wipi config for your passwords
-vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
--- change all the passwords accordingly in this file
--- :x
 
 
 
