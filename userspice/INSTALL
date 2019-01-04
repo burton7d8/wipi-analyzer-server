@@ -35,7 +35,7 @@ http://your.server.ip/wipi/
 	- set database user to userspice
 	- set database password to [ the database password you used in the mysql line above ]
 	- set database name to userspice
-	- set copyright message to "WiPi Server"
+	- set copyright message to "WiPi Analyzer Server"
 	- click "Test Settings"
 	- scroll down, you should see "Database connection successfull! / Tables imported successfully
 	- click red "Save Settings" button
