@@ -1,5 +1,5 @@
 <?php
-$using_userspice = "no";
+$using_userspice = "yes";
 
 $mysql_host = "localhost";	//the location of the mysql database
 $mysql_username = "wipi";	// the username used to connect to the wipi database
@@ -36,11 +36,9 @@ if($using_userspice == "yes")
 	<?php //require_once $abs_us_root.$us_url_root.'users/includes/html_footer.php'; // currently just the closing /body and /html
 	print "
 	<head>
-	<link rel=\"stylesheet\" href=\"./includes/bootstrap.min.css\" />
 	<link rel=\"stylesheet\" href=\"./includes/jquery-ui-timepicker-addon.css\" />
 	<link rel=\"stylesheet\" href=\"./includes/jquery-ui-1.12.1/jquery-ui.css\" />
 	<script type=\"text/javascript\" src=\"./includes/jquery-3.3.1.min.js\"></script>
-	<script type=\"text/javascript\" src=\"./includes/bootstrap.min.js\"></script>
 	<script type=\"text/javascript\" src=\"./includes/jquery-ui-1.12.1/jquery-ui.js\"></script>
 	<script type=\"text/javascript\" src=\"./includes/jquery-ui-timepicker-addon.js\"></script>
 	</head>";
