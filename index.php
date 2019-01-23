@@ -37,13 +37,6 @@ asort($wipi_monitors);
 
 
 print "
-<head>
-<script type=\"text/javascript\" src=\"./includes/jquery-3.3.1.min.js\"></script>
-<script type=\"text/javascript\" src=\"./includes/jquery-ui-1.12.1/jquery-ui.js\"></script>
-<script type=\"text/javascript\" src=\"./includes/jquery-ui-timepicker-addon.js\"></script>
-<link rel=\"stylesheet\" href=\"./includes/jquery-ui-timepicker-addon.css\" />
-<link rel=\"stylesheet\" href=\"./includes/jquery-ui-1.12.1/jquery-ui.css\" />
-</head>
 <script type=\"text/javascript\">
 $( function() {
 	$('#datetimepicker1').datetimepicker({
@@ -60,6 +53,8 @@ $( function() {
 });
 </script>
 ";
+
+
 print "<br><br>";
 print "<center><b><font size=5>WiPi Analyzer Server</font></b><br><br>";
 //print "<br><br><br><br><br><br><br>";
