@@ -1,5 +1,5 @@
 <?php
-$using_userspice = "yes";
+$using_userspice = "no";
 
 $mysql_host = "localhost";	//the location of the mysql database
 $mysql_username = "wipi";	// the username used to connect to the wipi database
