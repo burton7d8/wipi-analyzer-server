@@ -9,8 +9,7 @@ if($using_userspice != "yes")
 
 
 
-print "<center><b><font size=5>WiPi Server</font></b><br><br>";
-
+print "<center>";
 print "<br><br>";
 print "<i>The WiPi graphs below are free for <u>Personal Use</u> and are provided by <a href=http://www.highcharts.com/download target=_blank>HIGHCHARTS</a> under the <a href=https://creativecommons.org/licenses/by-nc/3.0/ target=_blank>Creative Commons (CC) Attribution-NonCommercial license</a><br>";
 print "You <u>CAN NOT</u> use HIGHCHARTS for <a href=https://shop.highsoft.com/faq#Non-Commercial-0 target=_blank>commercial use</a>  You must purchase a <a href=https://shop.highsoft.com/highcharts target=_blank>license</a> from HIGHCHARTS to do so!<br></i>";
