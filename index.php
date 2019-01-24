@@ -236,8 +236,10 @@ foreach($all_devices as $timestamp => $devices)
 		}
 
 		if(!in_array($clean_device,$graph_devices["devices"]))
+		{
 			$graph_devices["devices"][] = $clean_device;
-
+			$list_devices[] = $device;
+		}
 		if(!in_array($clean_device,$graph_devices[$timestamp]))
 			$graph_devices["timestamp"][$timestamp][] = $clean_device;
 	}
@@ -1757,7 +1759,34 @@ print "
 ";
 print "</script>";
 
+if(file_exists("./oui.txt"))
+{
+	print "<b>OVERLAPPING SSID AP DETAILS:</b>";
+	print "<select>";
+	foreach($graph_ssid_scan as $the_ssid => $the_values)
+	{
+	        if(preg_match("/\|/i",$the_ssid))
+	        {
+	                //print "$the_ssid<br>";
+	                //i'm here
+	                $ssid_info = explode("|",$the_ssid);
+	                //pre_print($ssid_info);
+	                $mac_oid = trim(strtoupper(str_replace(":","-",substr($ssid_info[1],0,-9))));
+	                $command = "grep \"$mac_oid\" ./oui.txt | ".'sed -e \'s/  \+/\t/g\' | cut -f4';
+	                //print "command: $command<br>";
+	                $ap_mfg = exec($command);
+			if(!$ap_mfg)
+				$ap_mfg = "?";
+        	        //print "MAC OID: $mac_oid AP MFG: $ap_mfg<br>";
 
+	                print "<option value=none>".$ssid_info[0]."|".$ssid_info[1]."|".$ap_mfg."|".$ssid_info[2]."|".$ssid_info[3]."</option>";
+
+        	}
+	}	
+	print "</select><br><br>";
+}
+else
+	print "<font size=3><i>TO GET MAC OUI MFG INFO FOR AP's PLEASE RUN THE FOLLOWING COMMAND IN THE WIPI SERVER DIRECTORY<br>wget http://standards-oui.ieee.org/oui.txt<br><br><br>";
 
 
 
@@ -2199,9 +2228,15 @@ print "
 ";
 print "</script>";
 
-
-
-
+//pre_print($list_devices);
+print "<b>DEVICE DETAILS:</b>";
+print "<select>";
+foreach($list_devices as $device_key => $the_device)
+{
+	print "<option value=$key>$the_device</option>";
+}
+print "</select>";
+print "<br><br>";
 
 
 
@@ -2336,11 +2371,34 @@ print "
 ";
 print "</script>";
 
-
-
-
-
-
+if(file_exists("./oui.txt"))
+{
+	print "<b>FULL SSID AP DETAILS:</b>";
+	print "<select>";
+	foreach($graph_ssid_scan_all as $the_ssid => $the_values)
+	{
+		if(preg_match("/\|/i",$the_ssid))
+		{
+			//print "$the_ssid<br>";
+			//i'm here	
+			$ssid_info = explode("|",$the_ssid);
+			//pre_print($ssid_info);
+			$mac_oid = trim(strtoupper(str_replace(":","-",substr($ssid_info[1],0,-9))));
+			$command = "grep \"$mac_oid\" ./oui.txt | ".'sed -e \'s/  \+/\t/g\' | cut -f4';
+			//print "command: $command<br>";
+			$ap_mfg = exec($command);
+			if(!$ap_mfg)
+				$ap_mfg = "?";
+			//print "MAC OID: $mac_oid AP MFG: $ap_mfg<br>";
+			
+			print "<option value=none>".$ssid_info[0]."|".$ssid_info[1]."|".$ap_mfg."|".$ssid_info[2]."|".$ssid_info[3]."</option>";
+				
+		}
+	}
+	print "</select><br><br>";
+}
+else
+	print "<font size=3><i>TO GET MAC OUI MFG INFO FOR AP's PLEASE RUN THE FOLLOWING COMMAND IN THE WIPI SERVER DIRECTORY<br>wget http://standards-oui.ieee.org/oui.txt<br><br><br>";
 
 
 
