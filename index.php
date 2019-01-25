@@ -67,14 +67,14 @@ print "<font size=2>Database Size: ".$db_size[0][0]." MB</font><br>";
 if($ssid_filter_enabled)
 {
 	if(!$ssid_filter_size)
-		$ssid_filter_size = "80";
+		$ssid_filter_size = "85";
 	print "<input type=checkbox name=ssid_filter_enabled value=yes checked style=\"display:inline;\">Filter out SSID's lower than -";
 	print "<input type=text name=ssid_filter_size size=1 maxlength=3 value=\"$ssid_filter_size\" style=\"display;\">dbm<br>";
 }
 else
 {
 	if(!$ssid_filter_size)
-		$ssid_filter_size = "80";
+		$ssid_filter_size = "85";
 	print "<input type=checkbox name=ssid_filter_enabled value=yes style=\"display:inline;\">Filter SSID's lower than -";
 	print "<input type=text name=ssid_filter_size size=1 maxlength=3 value=\"$ssid_filter_size\" style=\"display:inline;\">dbm<br>";
 }
@@ -1508,7 +1508,7 @@ foreach($connected_ssid_mac_id_util as $key => $value)
 	//print "<u>AP ID: </u>$key --> $value [ ".$connected_ssid_mac_hostname[$key]." ]<br>";
 	print "AP ID: $key --> $value<br>";
 }
-print "<i><font size=1>NOTE: NOT ALL SSIDS REPORT UTILIZATION INFORMATION</font></i><br>";
+print "<i><font size=1>NOTE: NOT ALL SSIDS REPORT UTILIZATION INFORMATION<br>Estimated throughput is more of a guess and is affected by co-channel usage from other APs, number of SSIDs on channel, etc</font></i>";
 
 print " '
         },
