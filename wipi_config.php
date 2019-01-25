@@ -78,6 +78,11 @@ else
 	      <li><a href=\"./admin.php\">ADMIN</a></li>
 	      <li><a href=\"./info_ref.php\">WiFi Reference Charts</a></li>
 	    </ul>
+	    <ul class=\"nav navbar-nav navbar-right\">
+	      <li><a href=#the_top>PAGE TOP</a></li>
+	      <li><a href=#the_middle>PAGE MIDDLE</a></li>
+	      <li><a href=#the_bottom>PAGE BOTTOM</a></li>
+	    </ul>
 	  </div>
 	</nav>
 	<br><br><br><br>";
