@@ -404,12 +404,17 @@ foreach($stack as $key => $value)
 	$clean_wifi_sig["tx_excessive_retries"][] = $tx_excessive_retries;
 	$clean_wifi_sig["center_freq"][] = $center_freq;
 	$clean_wifi_sig["width"][] = $width;
+	//$avg_bitrate[$connected_ssid_mac]["added_bitrates"] = $avg_bitrate[$connected_ssid_mac]["added_bitrates"] + $bit_rate;
+	//$avg_bitrate[$connected_ssid_mac]["count"]++;
+	//$avg_bitrate[$connected_ssid_mac]["avg_bitrate"] = round($avg_bitrate[$connected_ssid_mac]["added_bitrates"] / $avg_bitrate[$connected_ssid_mac]["count"]);
+	$connected_bitrates[$time_stamp][$connected_ssid_mac][] = $bit_rate;	
 
 }
 
 array_multisort($clean_wifi_sig["timestamp"], SORT_ASC, $clean_wifi_sig["link_quality"], SORT_ASC, $clean_wifi_sig["sig_level"], SORT_ASC, $clean_wifi_sig["bit_rate"], SORT_ASC, $clean_wifi_sig["ssid_mac_id"], SORT_ASC, $clean_wifi_sig["ssid_mac"], SORT_ASC, $clean_wifi_sig["channel"], SORT_ASC, $clean_wifi_sig["tx_excessive_retries"], SORT_ASC, $clean_wifi_sig["center_freq"], SORT_ASC, $clean_wifi_sig["width"], SORT_ASC);
 //pre_print($clean_wifi_sig);
 //pre_print($connected_ssid_mac_id);
+//pre_print($avg_bitrate);
 
 
 
@@ -1535,6 +1540,43 @@ print "
 
 print "
 	,{
+	name: 'Estimated Throughput [mb]',
+	data: [
+";
+
+$last_key = end(array_keys($graph_utilization["timestamp"]));
+foreach($graph_utilization["timestamp"] as $key => $value)
+{
+	$time_stamp = $value;
+	$utilization = ($graph_utilization["utilization"][$key] * .01);
+	$ssid_mac = strtoupper($graph_utilization["ssid_mac"][$key]);
+	//$da_avg_bitrate = $avg_bitrate[$ssid_mac]["avg_bitrate"];
+	$connected_bitrate = $connected_bitrates[$time_stamp][$ssid_mac][0];	
+	//$est_throughput = round($da_avg_bitrate * $utilization);
+	$est_throughput = round($connected_bitrate * $utilization);
+	
+	if($key != $last_key)
+		print "[$time_stamp,$est_throughput],";
+	else
+		print "[$time_stamp,$est_throughput]";
+}
+
+
+print "],
+            tooltip: {
+                valueDecimals: 0,
+            }
+        }
+";
+
+
+
+
+
+
+
+print "
+	,{
 	name: 'Active Channel',
 	data: [
 ";
@@ -1623,8 +1665,19 @@ print "]
 print "</script>";
 
 
-
-
+//gohere
+$last_key = end(array_keys($graph_utilization["timestamp"]));
+foreach($graph_utilization["timestamp"] as $key => $value)
+{
+	$time_stamp = $value;
+	$utilization = ($graph_utilization["utilization"][$key] * .01);
+	$ssid_mac = strtoupper($graph_utilization["ssid_mac"][$key]);
+	$da_avg_bitrate = $avg_bitrate[$ssid_mac]["avg_bitrate"];
+	$connected_bitrate = $connected_bitrates[$time_stamp][$ssid_mac][0];	
+	$est_throughput = round($da_avg_bitrate * $utilization);
+	$est_throughput = round($da_bitrate * $utilization);
+	//print "utilization: $utilization da_bitrate: $connected_bitrate da_avg_bitrate: $da_avg_bitrate est_throughput: $est_throughput ssid_mac: $ssid_mac<br>";
+}
 
 
 
