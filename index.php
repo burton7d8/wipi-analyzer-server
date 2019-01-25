@@ -185,8 +185,11 @@ if($ssid_filter_enabled)
 }
 print "</form>";
 
-print "<br><br><a href=#the_bottom class=\"btn btn-info\">GO TO BOTTOM</a>";
-
+if($using_userspice == "yes")
+{
+	print "<br><br><a href=#the_middle class=\"btn btn-info\">GO TO MIDDLE</a>";
+	print "<br><br><a href=#the_bottom class=\"btn btn-info\">GO TO BOTTOM</a>";
+}
 
 print "<br><br>";
 print "<i>The WiPi graphs below are free for <u>Personal Use</u> and are provided by <a href=http://www.highcharts.com/download target=_blank>HIGHCHARTS</a> under the <a href=https://creativecommons.org/licenses/by-nc/3.0/ target=_blank>Creative Commons (CC) Attribution-NonCommercial license</a><br>";
@@ -2249,6 +2252,12 @@ print "<br><br>";
 
 
 
+print "<a name=the_middle></a>";
+if($using_userspice == "yes")
+{
+	print "<br><br><a href=#the_top class=\"btn btn-info\">GO TO TOP</a>";
+	print "<a href=#the_bottom class=\"btn btn-info\">GO TO BOTTOM</a>";
+}
 // ====================================== start of 2.4 all ssid scan charts =================================
 print "<br><br><br><font size=6><u><b>FULL SSID SCAN RESULTS</b></u></font><br><br>";
 
@@ -4181,7 +4190,12 @@ print "<br><br>Note: 80MHz capable AP's are backwards compatible for 40MHz and 2
 print "<a name=the_bottom></a>";
 
 print "<br>";
-print "<a href=#the_top class=\"btn btn-info\">GO TO TOP</a>";
+
+if($using_userspice == "yes")
+{
+	print "<a href=#the_middle class=\"btn btn-info\">GO TO MIDDLE</a>";
+	print "<a href=#the_top class=\"btn btn-info\">GO TO TOP</a>";
+}
 print "<br><br><br>";
 
 if($using_userspice == "yes")
