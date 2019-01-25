@@ -188,7 +188,7 @@ print "</form>";
 if($using_userspice == "yes")
 {
 	print "<br><br><a href=#the_middle class=\"btn btn-info\">GO TO MIDDLE</a>";
-	print "<br><br><a href=#the_bottom class=\"btn btn-info\">GO TO BOTTOM</a>";
+	print "<a href=#the_bottom class=\"btn btn-info\">GO TO BOTTOM</a>";
 }
 
 print "<br><br>";
