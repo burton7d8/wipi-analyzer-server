@@ -9,11 +9,13 @@ sudo composer require twbs/bootstrap
 
 cd /var/www/html/
 
-wget https://github.com/mudmin/UserSpice4/archive/master.zip
+sudo wget https://github.com/mudmin/UserSpice4/archive/master.zip
 
-unzip master.zip
+sudo apt-get install unzip
 
-mv UserSpice4-master/ wipi/
+sudo unzip master.zip
+
+sudo mv UserSpice4-master/ wipi/
 
 sudo chown -R wipi:www-data /var/www/html/wipi/
 
@@ -128,14 +130,8 @@ http://your.server.ip/wipi/
 	- click blue "Update" button
 
 
-
-
-
-
-
-
-
-
+WiPi-Server should now be available to use via 
+https://the.ip.of.server/wipi/wipi-analyzer-server/
 
 
 
