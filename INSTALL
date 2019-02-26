@@ -90,15 +90,17 @@ NOTE:  WiPi gathers mac addresses and hostnames of all the devices on your netwo
 	use WiPi-Server and a WiPi client in a closed network, then you can continue.
 		--Or continue if you just don't care :)
 
-mkdir /var/www/html/wipi-analyzer-server
+mkdir /var/www/html/wipi
 
-cd /var/www/html/wipi-analyzer-server
+mkdir /var/www/html/wipi/wipi-analyzer-server
+
+cd /var/www/html/wipi/wipi-analyzer-server
 
 git init
 
 git pull https://github.com/burton7d8/wipi-analyzer-server master
 
-sudo chown -R wipi:www-data /var/www/html/wipi-analyzer-server/*
+sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
 
 mysql -u root -p wipi_analyzer < wipi_analyzer.sql
 
@@ -108,5 +110,5 @@ vim wipi_config.php
 -- change all the passwords accordingly in this file
 -- :x
 
-WiPi-Server should now be available to use via https://the.ip.of.server/wipi-analyzer-server/
+WiPi-Server should now be available to use via https://the.ip.of.server/wipi/wipi-analyzer-server/
 
