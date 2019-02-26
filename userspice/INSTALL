@@ -57,6 +57,8 @@ git pull https://github.com/burton7d8/wipi-analyzer-server master
 
 sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
 
+mysql -u root -p wipi_analyzer < wipi_analyzer.sql
+
 |setup wipi config for your passwords
 vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
 -- change all the passwords accordingly in this file
