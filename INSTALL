@@ -37,6 +37,17 @@ WARNING: These steps assume this is a fresh installed, dedicated server, for the
 		-- If you already have a LAMP server going, and know what you are doing, then you
 			can jump ahead to the section where you do the mysql provisioning
 
+|If you are running this in a container or did not create a user during install besides root please do the following to add the user wipi and set your timezone
+useradd wipi -m
+
+|After entering the command below you will be prompted to enter a password for the user. Once done switch to the user and proceed with the installation steps
+passwd wipi
+
+|Set your timezone with the following command. You'll want to check for your specific timezone in the /usr/share/zoneinfo directory. Central Time in USA example below.
+cp /usr/share/zoneinfo/America/Chicago /etc/localtime
+
+|Switch to your wipi user
+su - wipi
 
 |New Install steps only!
 sudo apt update && sudo apt upgrade
@@ -46,6 +57,8 @@ sudo tasksel install lamp-server
 	-- after the install completes, try loading the following from your web browser
 		http://the.ip.of.server
 		-- if you get the "Apache2 Ubuntu Default Page" your lamp install was succesful
+|Install php-xml for Userspice install
+sudo apt install php-xml
 
 |Run these commands to ensure https is running on your site [ New Install steps only! ]
 cd /etc/apache2/sites-available
@@ -77,15 +90,17 @@ NOTE:  WiPi gathers mac addresses and hostnames of all the devices on your netwo
 	use WiPi-Server and a WiPi client in a closed network, then you can continue.
 		--Or continue if you just don't care :)
 
-mkdir /var/www/html/wipi-analyzer-server
+mkdir /var/www/html/wipi
 
-cd /var/www/html/wipi-analyzer-server
+mkdir /var/www/html/wipi/wipi-analyzer-server
+
+cd /var/www/html/wipi/wipi-analyzer-server
 
 git init
 
 git pull https://github.com/burton7d8/wipi-analyzer-server master
 
-sudo chown -R wipi:www-data /var/www/html/wipi-analyzer-server/*
+sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
 
 mysql -u root -p wipi_analyzer < wipi_analyzer.sql
 
@@ -95,5 +110,5 @@ vim wipi_config.php
 -- change all the passwords accordingly in this file
 -- :x
 
-WiPi-Server should now be available to use via https://the.ip.of.server/wipi-analyzer-server/
+WiPi-Server should now be available to use via https://the.ip.of.server/wipi/wipi-analyzer-server/
 

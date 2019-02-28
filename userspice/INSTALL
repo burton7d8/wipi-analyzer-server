@@ -9,11 +9,13 @@ sudo composer require twbs/bootstrap
 
 cd /var/www/html/
 
-wget https://github.com/mudmin/UserSpice4/archive/master.zip
+sudo wget https://github.com/mudmin/UserSpice4/archive/master.zip
 
-unzip master.zip
+sudo apt-get install unzip
 
-mv UserSpice4-master/ wipi/
+sudo unzip master.zip
+
+sudo mv UserSpice4-master/ wipi/
 
 sudo chown -R wipi:www-data /var/www/html/wipi/
 
@@ -54,6 +56,8 @@ git init
 git pull https://github.com/burton7d8/wipi-analyzer-server master
 
 sudo chown -R wipi:www-data /var/www/html/wipi/wipi-analyzer-server/*
+
+mysql -u root -p wipi_analyzer < wipi_analyzer.sql
 
 |setup wipi config for your passwords
 vim /var/www/html/wipi/wipi-analyzer-server/wipi_config.php
@@ -128,14 +132,8 @@ http://your.server.ip/wipi/
 	- click blue "Update" button
 
 
-
-
-
-
-
-
-
-
+WiPi-Server should now be available to use via 
+https://the.ip.of.server/wipi/wipi-analyzer-server/
 
 
 
